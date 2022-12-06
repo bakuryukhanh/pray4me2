@@ -1,0 +1,20 @@
+.container{
+  display: grid;
+  grid-template-columns: 224px 1fr;
+  width: 100%;
+}
+.main{
+  background: white;
+  min-height: 100vh;
+}
+
+.nav-bar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 224px;
+  height: 100%;
+  background: #FFFFFF;
+  box-shadow: 7px -1px 12px rgba(0, 0, 0, 0.11);
+  z-index: 9999;
+}

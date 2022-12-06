@@ -1,0 +1,20 @@
+.container{
+  padding: 32px;
+  .header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 24px;
+  }
+  .title{
+    font-size: 29px;
+  }
+  .select{
+    :global{
+      .ant-select-selection-item{
+      font-weight: 400;
+      font-size: 16px;
+      }
+    }
+  }
+}

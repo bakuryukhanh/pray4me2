@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  color String
+  Item  Item[]
+}
+
+model User {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  color   String
+  items   Item[]   @relation(fields: [itemIds], references: [id])
+  itemIds String[] @db.ObjectId
+}
+
+model Status {
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  Item       Item[]
+  ItemStatus ItemStatus[]
+}
+
+model Item {
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  category    Category     @relation(fields: [categoryId], references: [id])
+  title       String
+  description String
+  categoryId  String
+  userIds     String[]     @db.ObjectId
+  users       User[]       @relation(fields: [userIds], references: [id])
+  ItemStatus  ItemStatus[]
+  Status      Status?      @relation(fields: [statusId], references: [id])
+  statusId    String?      @db.ObjectId
+}
+
+model ItemStatus {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  index    DateTime @default(now())
+  itemId   String
+  statusId String
+  item     Item     @relation(fields: [itemId], references: [id])
+  status   Status   @relation(fields: [statusId], references: [id])
+}

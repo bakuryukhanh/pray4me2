@@ -1,0 +1,38 @@
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.action{
+  position: absolute;
+  right: 24px;
+  top: 20px;
+  z-index: 10;
+}
+.title{
+  font-weight: 600;
+  margin: 12px 0;
+}
+.content{
+  margin: 20px 0;
+  overflow-wrap: break-word;
+  white-space: pre-line;
+}
+.tag{
+  font-weight: 500;
+font-size: 8px;
+color: #707070;
+display: flex;
+align-items: center;
+gap: 3px;
+&:before{
+  content: '';
+  display: block;
+  height: 5px;
+  width: 5px;
+  background: var(--color);
+  border-radius: 50%;
+}
+}
