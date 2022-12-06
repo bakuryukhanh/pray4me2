@@ -4,7 +4,7 @@ import Header from "./Header";
 import style from "./index.module.scss";
 import Main from "./Main";
 import NavBar from "./NavBar";
-const Layout = () => {
+const Layout = ({ children }) => {
   return (
     <div className={style["container"]}>
       <nav className={style["nav-bar"]}>
@@ -15,9 +15,7 @@ const Layout = () => {
         <div className={style["main-header"]}>
           <Header />
         </div>
-        <div className={style["main-content"]}>
-          <Main />
-        </div>
+        <div className={style["main-content"]}>{children}</div>
       </section>
     </div>
   );

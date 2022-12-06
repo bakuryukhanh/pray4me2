@@ -145,7 +145,18 @@ export const Item = React.memo(
                 >
                   <Select
                     options={categories?.map((item) => {
-                      return { label: item.name, value: item.id };
+                      return {
+                        label: (
+                          <div className={cardStyles.category}>
+                            <span
+                              style={{ backgroundColor: item.color }}
+                              className={cardStyles.color}
+                            ></span>
+                            {item.name}
+                          </div>
+                        ),
+                        value: item.id,
+                      };
                     })}
                   />
                 </Form.Item>
@@ -292,13 +303,9 @@ export const Item = React.memo(
               <Avatar.Group>
                 {renderProps?.users.map((item) => (
                   <Avatar
-                    style={{
-                      background: item.color,
-                    }}
-                    key={item.name}
-                  >
-                    {item.name}
-                  </Avatar>
+                    src={`${process.env.NEXT_PUBLIC_AVATAR_HOST}?name=${item.name}&background=${item.color}&color=fff`}
+                    key={item.id}
+                  />
                 ))}
               </Avatar.Group>
             </div>

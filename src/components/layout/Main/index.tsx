@@ -1,12 +1,19 @@
 import style from "./index.module.scss";
-import { Select } from "antd";
+import { Select, Spin, Tooltip } from "antd";
 import { MultipleContainers } from "../../MultipleContainer/MultipleContainers";
 import { trpc } from "@/utils/trpc";
+import { Button } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 const Main = () => {
   const { data: items } = trpc.item.getAll.useQuery();
   const { data: statusArr } = trpc.status.getAll.useQuery();
 
-  if (!items || !statusArr) return <div>loading</div>;
+  if (!items || !statusArr)
+    return (
+      <div>
+        <Spin />
+      </div>
+    );
 
   const data = statusArr.reduce((acc, status) => {
     acc[status.id] = items
@@ -26,6 +33,7 @@ const Main = () => {
     <div className={style["container"]}>
       <div className={style["header"]}>
         <h2 className={style["title"]}>Board</h2>
+
         <Select bordered={false} defaultValue="week" className={style.select}>
           <Select.Option value="week">This Week</Select.Option>
         </Select>

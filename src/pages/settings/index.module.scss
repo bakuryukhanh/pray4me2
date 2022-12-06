@@ -1,0 +1,14 @@
+.container{
+  padding: 32px;
+}
+.row{
+  display: flex;
+  gap: 10px;
+  text-align: left;
+  max-width: 50%;
+}
+.button{
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  width: 50%;
+}
