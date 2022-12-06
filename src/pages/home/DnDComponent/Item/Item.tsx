@@ -88,14 +88,11 @@ export const Item = React.memo(
       const { data: user } = trpc.user.getAll.useQuery();
       const { data: status } = trpc.status.getAll.useQuery();
 
-      const handleDeleteItem = (e) => {
-        console.log("delete");
-        e.preventDefault();
-        e.stopPropagation();
+      const handleDeleteItem = () => {
         if (renderProps) deleteItem.mutate({ id: renderProps?.id });
       };
 
-      const handleEditItem = (e) => {
+      const handleEditItem = () => {
         const editModal = modal.confirm({
           title: "Edit Item",
           content: (
@@ -106,9 +103,9 @@ export const Item = React.memo(
                 }}
                 initialValues={{
                   ...renderProps,
-                  category: renderProps?.category?.id,
-                  users: renderProps?.users?.map((item) => item.id),
-                  status: renderProps?.status.id,
+                  category: renderProps?.categoryId,
+                  users: renderProps?.userIds,
+                  status: renderProps?.statusId,
                 }}
                 form={form}
               >
