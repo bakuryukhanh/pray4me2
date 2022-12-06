@@ -63,8 +63,6 @@ interface Props {
   }[];
 }
 
-const PLACEHOLDER_ID = "placeholder";
-
 export function MultipleContainers({
   cancelDrop,
   columns,
@@ -233,6 +231,12 @@ export function MultipleContainers({
     return index;
   };
 
+  const getItem = (id: string) => {
+    return Object.values(initialItems)
+      .flat()
+      .find((item) => item.id === id);
+  };
+
   useEffect(() => {
     requestAnimationFrame(() => {
       recentlyMovedToNewContainer.current = false;
@@ -329,9 +333,7 @@ export function MultipleContainers({
         }
       }}
       onDragEnd={({ active, over }) => {
-        const originContainer = Object.values(items)
-          .flat()
-          .find((item) => item.id === active.id)?.status.id;
+        const originContainer = getItem(active.id as string)?.statusId;
 
         if (!originContainer) {
           setActiveId(null);
@@ -347,42 +349,39 @@ export function MultipleContainers({
 
         const overContainer = findContainer(overId as string);
         if (!overContainer) {
-          console.log("No container found for overId");
+          return;
         }
 
-        if (overContainer) {
-          const activeIndex = items[originContainer]?.findIndex(
-            (item) => item.id === active.id
-          );
-          const overIndex = items[overContainer]?.findIndex(
-            (item) => item.id === over?.id
-          );
-          const activeItem = Object.values(items)
-            .flat()
-            .find((item) => item.id === active.id);
-          if (activeItem) {
-            if (originContainer === overContainer) {
-              if (activeIndex !== undefined && overIndex !== undefined) {
-                updateItemsIndexOnDrag(overIndex, overContainer, activeItem);
-                setItems((items) => ({
-                  ...items,
-                  [overContainer]: arrayMove(
-                    items[overContainer] || [],
-                    activeIndex,
-                    overIndex
-                  ),
-                }));
-              }
-            } else {
-              if (overIndex !== undefined) {
-                updateItems.mutate({
-                  ...activeItem,
-                  category: activeItem.category.id,
-                  users: activeItem.users.map((user) => user.id),
-                  status: overContainer as string,
-                });
-                updateItemsIndexOnDrag(overIndex, overContainer, activeItem);
-              }
+        const activeIndex = items[originContainer]?.findIndex(
+          (item) => item.id === active.id
+        );
+        const overIndex = items[overContainer]?.findIndex(
+          (item) => item.id === over?.id
+        );
+        const activeItem = getItem(activeId as string);
+        if (activeItem) {
+          if (originContainer === overContainer) {
+            if (activeIndex !== undefined && overIndex !== undefined) {
+              console.log(overIndex, overContainer, activeItem);
+              updateItemsIndexOnDrag(overIndex, overContainer, activeItem);
+              setItems((items) => ({
+                ...items,
+                [overContainer]: arrayMove(
+                  items[overContainer] || [],
+                  activeIndex,
+                  overIndex
+                ),
+              }));
+            }
+          } else {
+            if (overIndex !== undefined) {
+              updateItems.mutate({
+                ...activeItem,
+                category: activeItem.category.id,
+                users: activeItem.users.map((user) => user.id),
+                status: overContainer as string,
+              });
+              updateItemsIndexOnDrag(overIndex, overContainer, activeItem);
             }
           }
         }
@@ -401,7 +400,7 @@ export function MultipleContainers({
         }}
       >
         <SortableContext
-          items={[...containers, PLACEHOLDER_ID]}
+          items={[...containers]}
           strategy={horizontalListSortingStrategy}
         >
           {containers.map((containerId) => (
