@@ -1,4 +1,4 @@
-import { trpc } from "../../../utils/trpc";
+import { trpc } from "@/utils/trpc";
 import Footer from "../Icons/Footer";
 import Header from "./Header";
 import style from "./index.module.scss";

@@ -1,5 +1,5 @@
 import { trpc } from "../../utils/trpc";
-import Layout from "./layout";
+import Layout from "@/components/layout";
 
 function App() {
   return <Layout />;

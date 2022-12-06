@@ -1,10 +1,8 @@
-import { UniqueIdentifier } from "@dnd-kit/core";
-import {
-  AnimateLayoutChanges,
-  defaultAnimateLayoutChanges,
-  useSortable,
-} from "@dnd-kit/sortable";
-import { ContainerProps, Container } from "../DnDComponent";
+import type { UniqueIdentifier } from "@dnd-kit/core";
+import type { AnimateLayoutChanges } from "@dnd-kit/sortable";
+import { defaultAnimateLayoutChanges, useSortable } from "@dnd-kit/sortable";
+import type { ContainerProps } from "@/components/DnDComponent";
+import { Container } from "@/components/DnDComponent";
 import { CSS } from "@dnd-kit/utilities";
 
 const animateLayoutChanges: AnimateLayoutChanges = (args) =>

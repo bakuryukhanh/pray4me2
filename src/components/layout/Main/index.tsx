@@ -1,8 +1,7 @@
 import style from "./index.module.scss";
 import { Select } from "antd";
 import { MultipleContainers } from "../../MultipleContainer/MultipleContainers";
-import { items } from "../../data";
-import { trpc } from "../../../../utils/trpc";
+import { trpc } from "@/utils/trpc";
 const Main = () => {
   const { data: items } = trpc.item.getAll.useQuery();
   const { data: statusArr } = trpc.status.getAll.useQuery();

@@ -1,7 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { useState, useEffect } from "react";
-import type { ItemRouterOutput } from "../../../server/trpc/router/item";
-import { Item } from "../DnDComponent";
+import type { ItemRouterOutput } from "@/server/trpc/router/item";
+import { Item } from "@/components/DnDComponent";
 
 interface SortableItemProps {
   containerId: string;

@@ -9,9 +9,9 @@ import { Handle, Remove } from "./components";
 import styles from "./Item.module.scss";
 import More from "../../Icons/More";
 import cardStyles from "./card.module.scss";
-import { ItemRouterOutput } from "../../../../server/trpc/router/item";
+import type { ItemRouterOutput } from "@/server/trpc/router/item";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { trpc } from "../../../../utils/trpc";
+import { trpc } from "@/utils/trpc";
 
 export interface Props {
   renderProps?: ItemRouterOutput["getAll"][0];

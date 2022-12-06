@@ -1,14 +1,11 @@
 import React, { forwardRef } from "react";
 import classNames from "classnames";
 
-import { Handle, Remove } from "../Item";
-
 import styles from "./Container.module.scss";
 import More from "../../Icons/More";
 import Plus from "../../Icons/Plus";
-import { Button, Form, Input, Modal, Select } from "antd";
-import { Content } from "antd/es/layout/layout";
-import { trpc } from "../../../../utils/trpc";
+import { Form, Input, Modal, Select } from "antd";
+import { trpc } from "@/utils/trpc";
 
 export interface Props {
   children: React.ReactNode;

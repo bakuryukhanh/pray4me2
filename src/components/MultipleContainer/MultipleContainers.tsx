@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { unstable_batchedUpdates } from "react-dom";
 import type {
   CancelDrop,
   CollisionDetection,
-  Modifiers,
   UniqueIdentifier,
   KeyboardCoordinateGetter,
 } from "@dnd-kit/core";
-import { DropAnimation, closestCorners } from "@dnd-kit/core";
 import {
   closestCenter,
   pointerWithin,
@@ -18,7 +15,6 @@ import {
   KeyboardSensor,
   MouseSensor,
   TouchSensor,
-  useDroppable,
   useSensors,
   useSensor,
   MeasuringStrategy,
@@ -26,18 +22,15 @@ import {
 import type { SortingStrategy } from "@dnd-kit/sortable";
 import {
   SortableContext,
-  useSortable,
   arrayMove,
   verticalListSortingStrategy,
   horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { coordinateGetter as multipleContainersCoordinateGetter } from "./multipleContainersKeyboardCoordinates";
 
-import { Item } from "../DnDComponent";
 import DroppableContainer from "./DropppableContainer";
-import type { ItemRouterOutput } from "../../../server/trpc/router/item";
-import { trpc } from "../../../utils/trpc";
-import { cornersOfRectangle } from "@dnd-kit/core/dist/utilities/algorithms/helpers";
+import type { ItemRouterOutput } from "@/server/trpc/router/item";
+import { trpc } from "@/utils/trpc";
 import { SortableItem } from "./SortableItem";
 
 interface Props {
