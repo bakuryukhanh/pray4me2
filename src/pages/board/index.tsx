@@ -17,34 +17,34 @@ function App(props) {
   );
 }
 
-export async function getServerSideProps() {
-  const initialItems = await prisma?.item.findMany({
-    include: {
-      ItemStatus: true,
-      status: true,
-      category: true,
-      users: true,
-    },
-  });
-  const initialStatusArr = await prisma?.status.findMany();
+// export async function getServerSideProps() {
+//   const initialItems = await prisma?.item.findMany({
+//     include: {
+//       ItemStatus: true,
+//       status: true,
+//       category: true,
+//       users: true,
+//     },
+//   });
+//   const initialStatusArr = await prisma?.status.findMany();
 
-  const formattedItems = initialItems?.map((items) => {
-    return {
-      ...items,
-      ItemStatus: items.ItemStatus.map((itemStatus) => {
-        return {
-          ...itemStatus,
-          index: itemStatus.index.getTime(),
-        };
-      }),
-    };
-  });
-  return {
-    props: {
-      items: formattedItems,
-      statusArr: initialStatusArr,
-    },
-  };
-}
+//   const formattedItems = initialItems?.map((items) => {
+//     return {
+//       ...items,
+//       ItemStatus: items.ItemStatus.map((itemStatus) => {
+//         return {
+//           ...itemStatus,
+//           index: itemStatus.index.getTime(),
+//         };
+//       }),
+//     };
+//   });
+//   return {
+//     props: {
+//       items: formattedItems,
+//       statusArr: initialStatusArr,
+//     },
+//   };
+// };
 
 export default App;
