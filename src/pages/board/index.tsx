@@ -16,7 +16,8 @@ function App(props) {
     </Layout>
   );
 }
-export const getServerSideProps = async () => {
+
+App.getInitialProps = async () => {
   const initialItems = await prisma?.item.findMany({
     include: {
       ItemStatus: true,
