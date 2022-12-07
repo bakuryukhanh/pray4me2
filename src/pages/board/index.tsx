@@ -3,7 +3,7 @@ import Main from "@/components/layout/Main";
 import { prisma } from "@/server/db/client";
 
 function App(props) {
-  const originItems = props.items.map((item) => ({
+  const originItems = props.items?.map((item) => ({
     ...item,
     ItemStatus: item.ItemStatus.map((itemStatus) => ({
       ...itemStatus,
