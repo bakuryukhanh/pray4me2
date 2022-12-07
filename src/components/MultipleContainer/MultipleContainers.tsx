@@ -409,12 +409,12 @@ export function MultipleContainers({
               id={containerId}
               label={statusArr.find((item) => item.id === containerId)?.name}
               columns={columns}
-              items={items[containerId]!.map((item) => item.id)}
+              items={items[containerId]!.map((item) => item?.id)}
               scrollable={scrollable}
               style={containerStyle}
             >
               <SortableContext
-                items={items[containerId]!.map((item) => item.id)}
+                items={items[containerId]!.map((item) => item?.id)}
                 strategy={strategy}
               >
                 {items[containerId]!.map((value, index) => {

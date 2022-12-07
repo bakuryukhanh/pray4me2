@@ -108,6 +108,9 @@ export const Item = React.memo(
                   status: renderProps?.statusId,
                 }}
                 form={form}
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+                labelAlign="left"
               >
                 <Form.Item
                   label="title"
@@ -257,7 +260,11 @@ export const Item = React.memo(
               <div className={cardStyles.header}>
                 <div
                   className={cardStyles.tag}
-                  style={{ "--color": renderProps?.category?.color }}
+                  style={
+                    {
+                      "--color": renderProps?.category?.color,
+                    } as React.CSSProperties
+                  }
                 >
                   {renderProps?.category?.name}
                 </div>

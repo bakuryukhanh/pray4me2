@@ -4,19 +4,26 @@ import { MultipleContainers } from "../../MultipleContainer/MultipleContainers";
 import { trpc } from "@/utils/trpc";
 import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-const Main = () => {
+import { Category, Item, ItemStatus, Status, User } from "@prisma/client";
+const Main = ({
+  initialItems,
+  initialStatusArr,
+}: {
+  initialItems: Item & {
+    ItemStatus: ItemStatus[];
+    category: Category;
+    users: User[];
+  };
+  initialStatusArr: Status[];
+}) => {
   const { data: items } = trpc.item.getAll.useQuery();
   const { data: statusArr } = trpc.status.getAll.useQuery();
 
-  if (!items || !statusArr)
-    return (
-      <div>
-        <Spin />
-      </div>
-    );
+  const itemData = items ? items : initialItems;
+  const statusData = statusArr ? statusArr : initialStatusArr;
 
-  const data = statusArr.reduce((acc, status) => {
-    acc[status.id] = items
+  const data = statusData.reduce((acc, status) => {
+    acc[status.id] = itemData
       .filter((item) => item.statusId === status.id)
       .sort((a, b) => {
         if (!a.ItemStatus[0]?.index || !b.ItemStatus[0]?.index) return 0;
@@ -39,7 +46,7 @@ const Main = () => {
         </Select>
       </div>
       <div className={style["content"]}>
-        <MultipleContainers items={data} statusArr={statusArr} />
+        <MultipleContainers items={data} statusArr={statusData} />
       </div>
     </div>
   );

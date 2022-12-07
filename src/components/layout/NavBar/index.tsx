@@ -2,11 +2,12 @@ import style from "./index.module.scss";
 import cls from "classnames";
 import Footer from "../../Icons/Footer";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const routes = [
   {
     name: "Dashboard",
-    href: "/",
+    href: "/dashboard",
   },
   {
     name: "Board",
@@ -37,7 +38,7 @@ const NavBar = () => {
                 [style["active"]]: router.asPath === route.href,
               })}
             >
-              <a href={route.href}>{route.name}</a>
+              <Link href={route.href}>{route.name}</Link>
             </li>
           ))}
         </ul>
