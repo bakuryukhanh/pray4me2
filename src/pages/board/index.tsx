@@ -1,5 +1,6 @@
 import Layout from "@/components/layout";
 import Main from "@/components/layout/Main";
+import { prisma } from "@/server/db/client";
 
 function App(props) {
   const originItems = props.items.map((item) => ({
