@@ -5,36 +5,46 @@ import { trpc } from "@/utils/trpc";
 import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { Category, Item, ItemStatus, Status, User } from "@prisma/client";
+
+type TItemFull = Item & {
+  ItemStatus: ItemStatus[];
+  status: Status | null;
+  category: Category;
+  users: User[];
+};
+
 const Main = ({
   initialItems,
   initialStatusArr,
 }: {
-  initialItems: Item & {
-    ItemStatus: ItemStatus[];
-    category: Category;
-    users: User[];
-  };
-  initialStatusArr: Status[];
+  initialItems?: TItemFull[];
+  initialStatusArr?: Status[];
 }) => {
   const { data: items } = trpc.item.getAll.useQuery();
   const { data: statusArr } = trpc.status.getAll.useQuery();
 
   const itemData = items ? items : initialItems;
   const statusData = statusArr ? statusArr : initialStatusArr;
+  if (!itemData || !statusData) return <Spin />;
 
-  const data = statusData.reduce((acc, status) => {
-    acc[status.id] = itemData
-      .filter((item) => item.statusId === status.id)
-      .sort((a, b) => {
-        if (!a.ItemStatus[0]?.index || !b.ItemStatus[0]?.index) return 0;
-        return a.ItemStatus[0].index.getTime() -
-          b.ItemStatus[0].index.getTime() >
-          0
-          ? 1
-          : -1;
-      });
-    return acc;
-  }, {} as { [key: string]: typeof items });
+  const data = statusData.reduce(
+    (acc, status) => {
+      acc[status.id] = itemData
+        .filter((item) => item.statusId === status.id)
+        .sort((a, b) => {
+          if (!a.ItemStatus[0]?.index || !b.ItemStatus[0]?.index) return 0;
+          return a.ItemStatus[0].index.getTime() -
+            b.ItemStatus[0].index.getTime() >
+            0
+            ? 1
+            : -1;
+        });
+      return acc;
+    },
+    {} as {
+      [key: string]: TItemFull[];
+    }
+  );
 
   return (
     <div className={style["container"]}>
